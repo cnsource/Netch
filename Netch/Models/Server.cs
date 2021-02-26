@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Netch.Utils;
-using Newtonsoft.Json;
 
 namespace Netch.Models
 {
@@ -42,6 +43,9 @@ namespace Netch.Models
         ///     代理类型
         /// </summary>
         public virtual string Type { get; } = "WTF";
+
+        [JsonExtensionData]
+        public Dictionary<string, object> ExtensionData { get; set; }
 
         public object Clone()
         {

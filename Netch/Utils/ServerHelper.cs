@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Timers;
 using Netch.Models;
-using Newtonsoft.Json.Linq;
 
 namespace Netch.Utils
 {
@@ -18,6 +17,11 @@ namespace Netch.Utils
                 .Where(type => type.GetInterfaces().Contains(typeof(IServerUtil)));
 
             ServerUtils = serversUtilsTypes.Select(t => (IServerUtil) Activator.CreateInstance(t)).OrderBy(util => util.Priority);
+        }
+
+        public static Type GetTypeByTypeName(string typeName)
+        {
+            return ServerUtils.FirstOrDefault(i => i.TypeName.Equals(typeName))?.ServerType;
         }
 
         #region Delay
@@ -97,18 +101,6 @@ namespace Netch.Utils
         #region Handler
 
         public static readonly IEnumerable<IServerUtil> ServerUtils;
-
-        public static Server ParseJObject(JObject o)
-        {
-            var handle = GetUtilByTypeName((string) o["Type"]);
-            if (handle == null)
-            {
-                Logging.Warning($"不支持的服务器类型: {o["Type"]}");
-                return null;
-            }
-
-            return handle.ParseJObject(o);
-        }
 
         public static IServerUtil GetUtilByTypeName(string typeName)
         {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -205,9 +204,7 @@ namespace Netch.Forms.Mode
             await Task.Run(() =>
             {
                 if (!UseCustomFilenameBox.Checked)
-                {
                     FilenameTextBox.Text = ModeEditorUtils.ToSafeFileName(RemarkTextBox.Text);
-                }
             });
         }
     }

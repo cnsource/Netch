@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Netch.Controllers;
 using Netch.Models;
 using Netch.Servers.Socks5.Form;
-using Newtonsoft.Json.Linq;
 
 namespace Netch.Servers.Socks5
 {
@@ -19,10 +19,7 @@ namespace Netch.Servers.Socks5
 
         public string[] UriScheme { get; } = { };
 
-        public Server ParseJObject(in JObject j)
-        {
-            return j.ToObject<Socks5>();
-        }
+        public Type ServerType { get; } = typeof(Socks5);
 
         public void Edit(Server s)
         {
